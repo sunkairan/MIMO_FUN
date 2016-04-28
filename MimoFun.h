@@ -84,9 +84,9 @@ private:
 	kodocpp::decoder decoder;
 	std::vector<uint8_t> data_out;
 
-	uint32_t senderId;
 	kodocpp::encoder_factory encoder_factory;
 	kodocpp::encoder encoder;
+	uint32_t senderId;
 	std::vector<uint8_t> data_in;
 	std::vector<uint8_t> native_payload;
 

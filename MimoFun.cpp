@@ -199,7 +199,8 @@ void MimoFun::init_terminal_sender(uint32_t id, std::vector<uint8_t> in_data ){
 	std::vector<uint8_t> payload(encoder.payload_size());
 	for(uint32_t i = 0; i <= senderId; i++){
 		// Encode a (systematic) packet into the payload buffer
-		uint32_t bytes_used = encoder.write_payload(payload.data());
+		//uint32_t bytes_used =
+		encoder.write_payload(payload.data());
 	}
 	native_payload = payload;
 	// feed native packet directly to decoder

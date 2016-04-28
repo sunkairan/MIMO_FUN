@@ -298,7 +298,7 @@ UDPSocket::UDPSocket(const string &localAddress, unsigned short localPort)
 }
 
 void UDPSocket::setTimeout(struct timeval tv) {
-  int broadcastPermission = 1;
+  //int broadcastPermission = 1;
   if(setsockopt(sockDesc, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0){
 	  perror("Set Time Out Error!");
   }

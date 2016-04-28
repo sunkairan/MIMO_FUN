@@ -71,14 +71,14 @@ int main(int argc, char *argv[]) {
   all_neighbors.insert(all_neighbors.end(),downstream.begin(),downstream.end());
 
   // initialize MIMO FUN coder
-  MimoFun mimoFun(MimoFun::Edge_n, terminal_num, symbol_size, my_ip, upstream, downstream, verbose);
+  MimoFun mimoFun(nType, terminal_num, symbol_size, my_ip, upstream, downstream, verbose);
 
   // initialize sockets and transmitter
   MimoFunTransmit mimoFunTransmit(my_ip, appPort, tv, &mimoFun);
   while(1){
 	  for(auto tar: upstream){
 		  int retry_time = 0;
-		  uint8_t recvString[MAXRCVSTRING + 1]; // Buffer for echo string + \0
+		  //uint8_t recvString[MAXRCVSTRING + 1]; // Buffer for echo string + \0
 		  string sourceAddress;              // Address of datagram source
 		  while(retry_time < MAXRETRY){
 			  // send out POLL
