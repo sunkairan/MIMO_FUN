@@ -1,0 +1,17 @@
+#!/bin/sh
+# Get IP address
+IP=$(ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}')
+echo "IP address is ${IP}"
+
+case "$IP" in
+   "10.0.0.1") ./MIMO_FUN_Edge ./wheel3/config_edge.txt
+   ;;
+   "10.0.0.2") ./MIMO_FUN_Terminal ./wheel3/config_terminal_1.txt
+   ;;
+   "10.0.0.3") ./MIMO_FUN_Terminal ./wheel3/config_terminal_2.txt
+   ;;
+   "10.0.0.4") ./MIMO_FUN_Terminal ./wheel3/config_terminal_3.txt
+   ;;
+   *) echo "ERROR! Unidentified IP address in this scenario."
+   ;;
+esac

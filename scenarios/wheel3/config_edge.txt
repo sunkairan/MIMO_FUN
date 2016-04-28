@@ -1,0 +1,12 @@
+node_type: edge
+my_ip: 10.0.0.1
+upstream: 10.0.0.2 10.0.0.3 10.0.0.4
+downstream:
+broadcast_ip: 10.0.0.255
+terminal_num: 3
+symbol_size: 1024
+appPort: 20111
+time_out_in_s: 0
+time_out_in_us: 500000
+max_retry: 7
+verbose: 1
