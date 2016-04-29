@@ -13,14 +13,7 @@ node n1 {
     iconcoords {370.0 341.0}
     labelcoords {370.0 373.0}
     interface-peer {eth0 n6}
-    services {zebra OSPFv3MDR vtysh IPForward UserDefined}
-    custom-config {
-	custom-config-id service:UserDefined
-	custom-command UserDefined
-	config {
-	cmdup=('/home/mcnvm1/host/udp_broadcast 10.0.0.4 20101 abcdefg', )
-	}
-    }
+    services {zebra OSPFv3MDR vtysh IPForward}
 }
 
 node n2 {
@@ -74,14 +67,7 @@ node n4 {
     iconcoords {586.0 458.0}
     labelcoords {586.0 490.0}
     interface-peer {eth0 n6}
-    custom-config {
-	custom-config-id service:UserDefined
-	custom-command UserDefined
-	config {
-	cmdup=('/home/mcnvm1/host/udp_receiver 20101', )
-	}
-    }
-    services {zebra OSPFv3MDR vtysh IPForward}
+    services {zebra OSPFv3MDR vtysh IPForward UserDefined}
 }
 
 node n6 {

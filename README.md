@@ -4,10 +4,10 @@ MIMO-FUN stands for Multiple-Input and Multiple-Output Joint Fountain Coding and
 
 The project consists of 3 parts: **terminal**, **edge** and **backbone**. 
 
-It uses some open-source libraries: KODO, Eigen and PracticalSocket
+It uses some open-source libraries: KODO, Eigen and PracticalSocket.
 
-* ./build includes the KODO libraries
+* ./build/ includes the KODO libraries.
 
-* ./include includes the headers of KODO and Eigen
+* ./include/ includes the headers of KODO and Eigen.
 
-* ./scenarios includes shell scripts, configure files and topology files for some examples
+* ./scenarios/ includes shell scripts, configure files and topology files for some examples. The '.imn' configure files are used in CORE network emulator.
