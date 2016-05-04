@@ -1,4 +1,5 @@
 node_type: edge
+task_name: ../stat/dumbbell
 my_ip: 10.0.0.5
 upstream: 10.0.0.1 10.0.0.2
 downstream: 10.0.0.6

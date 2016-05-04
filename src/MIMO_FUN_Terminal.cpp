@@ -18,11 +18,13 @@
  */
 
 #include <iostream>           // For cout and cerr
+#include <fstream>
 #include <cstdlib>            // For atoi()
 #include <string>
 #include <vector>
 #include <cassert>
 #include <map>
+#include <ctime>
 
 #include "PracticalSocket.h"  // For UDPSocket and SocketException
 
@@ -53,6 +55,7 @@ int main(int argc, char *argv[]) {
   ConfigRead config(argv[1]);
   assert(config.read_single("node_type") == "terminal");
   MimoFun::nodeType nType = MimoFun::Terminal_n;
+  string task_name = config.read_single("task_name");
   string my_ip = config.read_single("my_ip");
   uint32_t senderId = config.read_single_i("senderId");
   string broadcast_ip = config.read_single("broadcast_ip");
@@ -89,6 +92,7 @@ int main(int argc, char *argv[]) {
   MimoFunTransmit mimoFunTransmit(my_ip, appPort, tv, &mimoFun);
 
   bool printed = false;
+  clock_t beginT, endT;
   // S1
   while(1)
   {
@@ -107,6 +111,7 @@ int main(int argc, char *argv[]) {
 		  mimoFunTransmit.genPktAndSendTo(MimoFun::Ack_p, broadcast_ip);
 		  break;
 	  case MimoFun::Poll_p :
+		  beginT = clock();
 		  cout<<"respond poll to "<< sourceAddress << endl;
 		  mimoFunTransmit.genPktAndSendTo(MimoFun::Data_p, broadcast_ip);
 		  break;
@@ -117,6 +122,17 @@ int main(int argc, char *argv[]) {
 
 	  // output received packets
 	  if(!printed && mimoFun.get_decoder_rank() == terminal_num ){
+		  	endT = clock();
+		  	double elapsed_secs = double(endT - beginT) / CLOCKS_PER_SEC;
+		  	if(mimoFun.is_verbose()){
+		  		string outputFileName;
+		  		outputFileName = task_name + "_Terminal_" + to_string(senderId) + "_Time.txt";
+		  		ofstream statfile;
+		  		statfile.open (outputFileName, ios::app);
+		  		statfile << elapsed_secs << endl;
+		  		statfile.close();
+		  	}
+
 		  	std::cout << "Terminal #" << senderId << " received all packets:" << std::endl;
 			std::vector<uint8_t> data_out(mimoFun.get_output_data());
 			auto c = data_out.begin();
@@ -127,6 +143,8 @@ int main(int argc, char *argv[]) {
 			  }
 			  std::cout << std::endl;
 			}
+			std::cout << "Total time: " << elapsed_secs << " s." << std::endl;
+
 			mimoFun.set_verbose(false);
 			printed = true;
 	  }
