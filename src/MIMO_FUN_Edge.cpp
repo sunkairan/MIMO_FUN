@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
   ConfigRead config(argv[1]);
   assert(config.read_single("node_type") == "edge");
   MimoFun::nodeType nType = MimoFun::Edge_n;
+  string task_name = config.read_single("task_name");
   string my_ip = config.read_single("my_ip");
   string broadcast_ip = config.read_single("broadcast_ip");
   vector<string> upstream = config.read_vector("upstream");
@@ -131,43 +132,6 @@ int main(int argc, char *argv[]) {
 		  cerr << "Unidentified packet type received!" << endl;
 		  exit(1);
 	  }
-
-	  /*int retry_time = 0;
-	  int bytesRcvd = 0;
-	  // S5, S6, S7: wait for poll of backbone and broadcast to backbone
-	  while(mimoFun.can_contribute_to_all(downstream)){
-		  mimoFunTransmit.genPktAndSendTo(MimoFun::Data_p, broadcast_ip);
-
-		  for(auto tar: all_neighbors){
-			  retry_time = 0;
-			  while(retry_time < MAXRETRY){
-				  // send out QACK
-				  mimoFunTransmit.genPktAndSendTo(MimoFun::Qack_p, tar);
-
-				  // wait for ACK
-				  bytesRcvd = mimoFunTransmit.recvPktAndWaitFor(MimoFun::Ack_p, tar);
-
-				  // handle time out
-				  if(bytesRcvd<0){
-					  cout<<"QACK FROM " << tar << " TIME OUT, TRY AGAIN." <<endl;
-					  retry_time++;
-					  continue; // retry QACK
-				  }
-				  else{
-					  break;	// get ACK from source
-				  }
-			  }
-			  assert(retry_time < MAXRETRY); // not implemented yet
-		  }
-	  }
-
-	  // S8, S9: receive from backbone
-	  // retry_time = 0;
-	  // bytesRcvd = -1;
-	  do{
-		  bytesRcvd = mimoFunTransmit.recvPktAndWaitFor(MimoFun::Data_p, downstream.front());
-	  }while(bytesRcvd <= 0);
-	*/
   }
 
   // S10: check if all terminals are finished

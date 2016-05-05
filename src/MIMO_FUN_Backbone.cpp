@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
   ConfigRead config(argv[1]);
   assert(config.read_single("node_type") == "backbone");
   MimoFun::nodeType nType = MimoFun::Backbone_n;
+  string task_name = config.read_single("task_name");
   string my_ip = config.read_single("my_ip");
   string broadcast_ip = config.read_single("broadcast_ip");
   vector<string> upstream = config.read_vector("upstream");
@@ -134,40 +135,6 @@ int main(int argc, char *argv[]) {
 		  }
 	  }
   }
-
-  /*// S1
-  string any;
-  while(1)
-  {
-	  int bytesRcvd = mimoFunTransmit.recvPktAndWaitFor(MimoFun::Data_p, any);
-	  if(mimoFun.can_contribute_to_all(all_neighbors)) {
-		  mimoFunTransmit.genPktAndSendTo(MimoFun::Data_p, broadcast_ip);
-
-		  for(auto tar: all_neighbors){
-			  int retry_time = 0;
-			  while(retry_time < MAXRETRY){
-				  // send out QACK
-				  mimoFunTransmit.genPktAndSendTo(MimoFun::Qack_p, tar);
-
-				  // wait for ACK
-				  bytesRcvd = mimoFunTransmit.recvPktAndWaitFor(MimoFun::Ack_p, tar);
-
-				  // handle time out
-				  if(bytesRcvd<0){
-					  cout<<"QACK FROM " << tar << " TIME OUT, TRY AGAIN." <<endl;
-					  retry_time++;
-					  continue; // retry QACK
-				  }
-				  else{
-					  break;	// get ACK from source
-				  }
-			  }
-			  assert(retry_time < MAXRETRY); // not implemented yet
-
-		  }
-	  }
-
-  }*/
 
   return 0;
 }
