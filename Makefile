@@ -15,7 +15,7 @@ all:	$(TARGET)
 
 $(TARGET):	$(OBJS) $(TARGETOBJ)
 	$(CXX) -o $@ $@.o $(OBJS) $(LIBS)
-	mv $@ $(BinDir)$(@F)
+	mkdir -p $(BinDir); mv $@ $(BinDir)$(@F)
 
 clean:
 	rm -f $(OBJS) $(TARGET) $(TARGETOBJ) $(BinDir)/*
